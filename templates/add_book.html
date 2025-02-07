@@ -1,0 +1,223 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add New Book</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+    {% tailwind_css %}
+  </head>
+  <body>
+    <div class="max-w-4xl mx-auto mt-10 p-8 bg-white shadow-lg rounded-lg my-12">
+      <h1 class="text-3xl font-semibold mb-8 text-center">Add a New Book</h1>
+
+      <form method="POST" enctype="multipart/form-data" class="space-y-6">
+        {% csrf_token %}
+
+        <div>
+          <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            value="{{ form.title.value|default_if_none:'' }}"
+            class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Enter the book title"
+            required
+          />
+          {% if form.title.errors %}
+          <div class="mt-2 text-sm text-red-600">
+            {% for error in form.title.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        <div>
+          <label for="authors" class="block text-sm font-medium text-gray-700">Authors</label>
+          <input
+            type="text"
+            name="authors"
+            id="authors"
+            value="{{ form.authors.value|default_if_none:'' }}"
+            class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Enter the authors"
+            required
+          />
+          {% if form.authors.errors %}
+          <div class="mt-2 text-sm text-red-600">
+            {% for error in form.authors.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        <div>
+          <label for="genre" class="block text-sm font-medium text-gray-700">Genre</label>
+          <input
+            type="text"
+            name="genre"
+            id="genre"
+            value="{{ form.genre.value|default_if_none:'' }}"
+            class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Enter the genre"
+            required
+          />
+          {% if form.genre.errors %}
+          <div class="mt-2 text-sm text-red-600">
+            {% for error in form.genre.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        <div>
+          <label for="publisher" class="block text-sm font-medium text-gray-700">Publisher</label>
+          <input
+            type="text"
+            name="publisher"
+            id="publisher"
+            value="{{ form.publisher.value|default_if_none:'' }}"
+            class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Enter the publisher"
+            required
+          />
+          {% if form.publisher.errors %}
+          <div class="mt-2 text-sm text-red-600">
+            {% for error in form.publisher.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        <div>
+          <label for="publication_date" class="block text-sm font-medium text-gray-700">Publication Date</label>
+          <input
+            type="date"
+            name="publication_date"
+            id="publication_date"
+            value="{{ form.publication_date.value|default_if_none:'' }}"
+            class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            required
+          />
+          {% if form.publication_date.errors %}
+          <div class="mt-2 text-sm text-red-600">
+            {% for error in form.publication_date.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        <div>
+          <label for="language" class="block text-sm font-medium text-gray-700">Language</label>
+          <input
+            type="text"
+            name="language"
+            id="language"
+            value="{{ form.language.value|default_if_none:'' }}"
+            class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Enter the language"
+            required
+          />
+          {% if form.language.errors %}
+          <div class="mt-2 text-sm text-red-600">
+            {% for error in form.language.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        <div>
+          <label for="cover_image" class="block text-sm font-medium text-gray-700">Cover Image</label>
+          <input type="file" name="cover_image" id="cover_image" class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" required />
+          {% if form.cover_image.errors %}
+          <div class="mt-2 text-sm text-red-600">
+            {% for error in form.cover_image.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        <div>
+          <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+          <textarea
+            name="description"
+            id="description"
+            class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            rows="4"
+            placeholder="Enter a short description of the book"
+            required
+          >
+{{ form.description.value|default_if_none:'' }}</textarea
+          >
+          {% if form.description.errors %}
+          <div class="mt-2 text-sm text-red-600">
+            {% for error in form.description.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        <div>
+          <label for="price" class="block text-sm font-medium text-gray-700">Price</label>
+          <input
+            type="number"
+            step="0.01"
+            name="price"
+            id="price"
+            value="{{ form.price.value|default_if_none:'' }}"
+            class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Enter the price"
+            required
+          />
+          {% if form.price.errors %}
+          <div class="mt-2 text-sm text-red-600">
+            {% for error in form.price.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        <div>
+          <label for="format" class="block text-sm font-medium text-gray-700">Format</label>
+          <input
+            type="text"
+            name="format"
+            id="format"
+            value="{{ form.format.value|default_if_none:'' }}"
+            class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Enter the format (e.g. Hardcover, Paperback)"
+            required
+          />
+          {% if form.format.errors %}
+          <div class="mt-2 text-sm text-red-600">
+            {% for error in form.format.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        <div class="text-center mt-6">
+          <button type="submit" class="bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Add Book</button>
+        </div>
+      </form>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 ns-book-django. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

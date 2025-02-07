@@ -1,0 +1,88 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book List</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+    {% tailwind_css %}
+  </head>
+
+  <body class="bg-gray-100 font-sans antialiased">
+    <!-- Header Section -->
+    <header class="bg-stone-800 text-white py-6 shadow-md">
+      <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <a href="/" class="text-2xl font-semibold">Home</a>
+        <nav>
+          <ul class="flex space-x-6">
+            <li><a href="{% url 'add_book' %}" class="hover:text-blue-200">Add Book</a></li>
+            <li><a href="{% url 'admin_dashboard' %}" class="hover:text-blue-200">Admin Dashboard</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <div class="min-h-screen">
+      <div class="max-w-6xl mx-auto p-8 bg-white shadow-lg rounded-lg mt-10">
+        <!-- Page Title -->
+        <h1 class="text-3xl font-semibold text-center text-gray-900 mb-8">Book List</h1>
+
+        <!-- Book Table -->
+        <div class="overflow-x-auto">
+          <table class="min-w-full table-auto bg-white shadow-md rounded-lg border border-solid border-slate-300">
+            <thead class="bg-slate-600 text-white">
+              <tr>
+                <th class="px-4 py-3 text-left">Title</th>
+                <th class="px-4 py-3 text-left">Authors</th>
+                <th class="px-4 py-3 text-left">Genre</th>
+                <th class="px-4 py-3 text-left">Publisher</th>
+                <th class="px-4 py-3 text-left">Publication Date</th>
+                <th class="px-4 py-3 text-left">Language</th>
+                <th class="px-4 py-3 text-left">Price</th>
+                <th class="px-4 py-3 text-left">Format</th>
+                <th class="px-4 py-3 text-center">Actions</th>
+                <!-- Actions column -->
+              </tr>
+            </thead>
+            <tbody>
+              {% for book in books %}
+              <tr class="border-t hover:bg-gray-50">
+                <td class="px-4 py-3">{{ book.title }}</td>
+                <td class="px-4 py-3">{{ book.authors }}</td>
+                <td class="px-4 py-3">{{ book.genre }}</td>
+                <td class="px-4 py-3">{{ book.publisher }}</td>
+                <td class="px-4 py-3">{{ book.publication_date }}</td>
+                <td class="px-4 py-3">{{ book.language }}</td>
+                <td class="px-4 py-3">${{ book.price }}</td>
+                <td class="px-4 py-3">{{ book.format }}</td>
+                <td class="px-4 py-3 text-center flex justify-center space-x-4">
+                  <a href="{% url 'view_book' book.id %}" title="View" class="text-blue-500 hover:text-blue-700">
+                    <img src="https://cdn-icons-png.freepik.com/256/3064/3064698.png?semt=ais_hybrid" alt="View" class="w-6 h-6" />
+                  </a>
+                  <a href="{% url 'edit_book' book.id %}" title="Edit" class="text-yellow-500 hover:text-yellow-700">
+                    <img src="https://cdn-icons-png.freepik.com/256/4226/4226577.png?semt=ais_hybrid" alt="Edit" class="w-6 h-6" />
+                  </a>
+                  <a href="{% url 'delete_book' book.id %}" title="Delete" class="text-red-500 hover:text-red-700">
+                    <img src="https://cdn-icons-png.freepik.com/256/4980/4980658.png?semt=ais_hybrid" alt="Delete" class="w-6 h-6" />
+                  </a>
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="9" class="text-center py-4 text-gray-600">No books available.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white text-center py-4 mt-10">
+      <p>&copy; 2025 ns-book-django. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

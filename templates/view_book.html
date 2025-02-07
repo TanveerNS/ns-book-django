@@ -1,0 +1,63 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ book.title }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+    {% tailwind_css %}
+  </head>
+
+  <body class="bg-gray-50 font-sans antialiased">
+    <!-- Header Section -->
+    <header class="bg-blue-600 text-white py-6 shadow-md">
+      <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <a href="/" class="text-2xl font-semibold">Home</a>
+        <nav>
+          <ul class="flex space-x-6">
+            <li><a href="{% url 'book_list' %}" class="hover:text-blue-200">Back to List</a></li>
+            <li><a href="#" class="hover:text-blue-200">{{ book.title }}</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <div class="min-h-screen">
+      <div class="max-w-6xl mx-auto p-8 bg-white shadow-lg rounded-lg mt-10">
+        <!-- Book Details -->
+        <div class="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-8">
+          <!-- Book Image -->
+          <div class="flex-shrink-0">
+            <img src="{{ book.cover_image.url }}" alt="{{ book.title }} Cover" class="w-48 h-72 object-cover rounded-lg shadow-lg" />
+          </div>
+
+          <!-- Book Info -->
+          <div class="flex flex-col space-y-4">
+            <h1 class="text-4xl font-semibold text-gray-900">{{ book.title }}</h1>
+            <p class="text-lg text-gray-700"><strong>Authors:</strong> {{ book.authors }}</p>
+            <p class="text-lg text-gray-700"><strong>Genre:</strong> {{ book.genre }}</p>
+            <p class="text-lg text-gray-700"><strong>Publisher:</strong> {{ book.publisher }}</p>
+            <p class="text-lg text-gray-700"><strong>Publication Date:</strong> {{ book.publication_date }}</p>
+            <p class="text-lg text-gray-700"><strong>Language:</strong> {{ book.language }}</p>
+            <p class="text-lg text-gray-700"><strong>Price:</strong> ${{ book.price }}</p>
+            <p class="text-lg text-gray-700"><strong>Format:</strong> {{ book.format }}</p>
+
+            <div>
+              <h3 class="text-xl font-semibold text-gray-900">Description</h3>
+              <p class="text-gray-700">{{ book.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white text-center py-4 mt-10">
+      <p>&copy; 2025 ns-book-django. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
